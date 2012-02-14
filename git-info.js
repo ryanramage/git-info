@@ -8,6 +8,10 @@ function addUncommitted (doc, callback) {
     exec(uncommitted_cmd, function(err, stdout, stderr) {
         var uncommitted = stdout.trim();
         doc.kanso.git.uncommitted = uncommitted.split('\n');
+        if (doc.kanso.git.uncommitted && doc.kanso.git.uncommitted.length == 1 && doc.kanso.git.uncommitted[0] == "") {
+            doc.kanso.git.uncommitted = [];
+        }
+
         callback(null, doc);
     });
 }
